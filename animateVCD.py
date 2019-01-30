@@ -120,7 +120,6 @@ if __name__ == '__main__':
 
     from config import animators, frames, svg_file, vcd_file
     animate = AnimateSVG(svg_file, vcd_file)
-    print(animators)
     animate.addAnimators(animators)
 
     # do the animation

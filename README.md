@@ -33,4 +33,4 @@ Then create/modify the [configuration file](config.py). There are some helper fu
 Then run the animation and use ImageMagick's convert to convert to an animated gif:
 
 	python animateVCD.py
-	convert -delay 50 -morph 0 frames/*svg $@
+	convert -delay 50 -morph 1 frames/*svg $@
