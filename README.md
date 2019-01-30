@@ -35,6 +35,11 @@ Then create/modify the [configuration file](config.py). There are some helper fu
     svg_file = "10seg.svg"
     vcd_file = "test.vcd"
 
+Simulate your verilog and dump your VCD file (don't compress the VCD):
+
+	iverilog -o seg10 seg10.v seg10_tb.v
+	vvp seg10
+
 Then run the animation and use ImageMagick's convert to convert to an animated gif:
 
 	python animateVCD.py
