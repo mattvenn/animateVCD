@@ -108,11 +108,14 @@ class StyleReplacer(Animator):
 # AnimateSVG class takes an SVG file and a bunch of Animator objects
 class AnimateSVG(object):
     
-    def __init__(self, svg_file, vcd_file):
+    def __init__(self, svg_file, vcd_file, frames):
         self.animators = []
         self.svg_file = svg_file
         self.vcd = VCDHelper(vcd_file)
-        self.max_frames = 1e6
+        self.frames = frames
+        max_frames = self.vcd.fetch('clk')[-1][0]
+        if frames > max_frames:
+            exit("max frames is %d" % max_frames)
 
     def addAnimators(self, animators):
         for a in animators:
@@ -121,23 +124,20 @@ class AnimateSVG(object):
     # add the animator to the list, and fetch its data
     def addAnimator(self, animator):
         vcd_data=self.vcd.fetch(animator.vcd_id)
-        animator.add_vcd_data(vcd_data)
 
         if vcd_data is None:
             exit("no data for [%s] found in VCD. Make sure VCD file is not compressed and vcd_id is valid" % animator.vcd_id)
 
-        if len(vcd_data) < self.max_frames:
-            self.max_frames = len(vcd_data)
+        animator.add_vcd_data(vcd_data, self.frames)
         self.animators.append(animator)
 
+   
     # animate method is called with a number of frames to iterate over
     # everytime, call each animators update method with the parsed SVG file and the current frame number
     # writes the output to an SVG file
-    def animate(self, frames):
-        if frames > self.max_frames:
-            exit("max frames is %d" % self.max_frames)
+    def animate(self):
 
-        for frame in range(frames):
+        for frame in range(self.frames):
             logging.info("frame %03d" % frame)
             with open(self.svg_file) as fh:
                 soup = BeautifulSoup(fh, "lxml")
@@ -150,11 +150,12 @@ class AnimateSVG(object):
 
 if __name__ == '__main__':
 
-    logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+    logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(levelname)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 
+    import importlib
     from config import animators, frames, svg_file, vcd_file
-    animate = AnimateSVG(svg_file, vcd_file)
+    animate = AnimateSVG(svg_file, vcd_file, frames)
     animate.addAnimators(animators)
 
     # do the animation
-    animate.animate(frames)
+    animate.animate()
