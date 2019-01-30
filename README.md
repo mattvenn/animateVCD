@@ -1,20 +1,21 @@
 # Animate an SVG with a VCD
 
-This is a tool for generating animations useful for teaching about digital logic.
+This is a tool for generating animations useful for teaching digital logic.
 
-A VCD file is created by simulating a [Verilog file](https://github.com/mattvenn/icestick-multisegment/blob/master/seg10.v) with iverilog and vvp.
-Here's how the VCD file looks like as displayted by GTKWave:
+A VCD file is created by simulating a Verilog file  with iverilog and vvp.
+Here's a [10 segment counter](https://github.com/mattvenn/icestick-multisegment/blob/master/seg10.v) counting from 0 to 15 as displayed by GTKWave:
 
 ![10seg.png](10seg.png)
 
-An animated gif can be created from an [SVG templat](10seg.svg) file and animated over a number of frames using the VCD file. 
+An animated gif can be created from an [SVG template](10seg.svg) file and animated over a number of frames. 
 
 ![animate](animate.gif)
 
 # Instructions
 
 Create the SVG file by drawing your picture in Inkscape or similar, and then setting each object you want to animate with a unique ID.
-So far, the only animations supported are changing text and changing style.
+
+So far, the only animations supported are changing text and changing style (contributions welcome!)
 
 Then create/modify the [configuration file](config.py). There are some helper functions to do some basic conversion and comparisons:
 
@@ -38,3 +39,7 @@ Then run the animation and use ImageMagick's convert to convert to an animated g
 
 	python animateVCD.py
 	convert -delay 50 -morph 1 frames/*svg $@
+
+# Acknowledgements
+
+Thanks to Gene Sullivan, Sameer Gauria for [Verilog_VCD](https://pypi.org/project/Verilog_VCD/)
