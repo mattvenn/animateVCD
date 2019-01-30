@@ -90,7 +90,7 @@ class AnimateSVG(object):
         animator.add_vcd_data(vcd_data)
 
         if vcd_data is None:
-            exit("no data for [%s] found in VCD" % animator.vcd_id)
+            exit("no data for [%s] found in VCD. Make sure VCD file is not compressed and vcd_id is valid" % animator.vcd_id)
 
         if len(vcd_data) < self.max_frames:
             self.max_frames = len(vcd_data)
