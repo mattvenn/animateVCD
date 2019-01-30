@@ -2,10 +2,14 @@
 
 This is a tool for generating animations useful for teaching about digital logic.
 
-![animate](animate.gif)
+A VCD file is created by simulating a [Verilog file](https://github.com/mattvenn/icestick-multisegment/blob/master/seg10.v) with iverilog and vvp.
+Here's how the VCD file looks like as displayted by GTKWave:
 
-This animation was created from this demo [10seg.svg](10seg.svg) file and animated using a VCD file created
-by simulating this [Verilog](https://github.com/mattvenn/icestick-multisegment/blob/master/seg10.v) with iverilog and vvp.
+![10seg.png](10seg.png)
+
+An animated gif can be created from an [SVG templat](10seg.svg) file and animated over a number of frames using the VCD file. 
+
+![animate](animate.gif)
 
 # Instructions
 
