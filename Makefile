@@ -5,7 +5,7 @@ all: animate.gif
 # $^ names of all preerquisites
 
 animate.gif: animate.py 7seg.svg
-	python animate.py
+	python animate.py --vcd test.vcd --svg 7seg.svg --frames 16
 	convert -delay 50 -morph 0 frames/*svg $@
 
 clean:
