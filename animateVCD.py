@@ -17,22 +17,38 @@ class VCDHelper(object):
 # handy conversion functions to convert the kind of values a VCD file has to something we might want in the SVG
 def convertBinStrToInt():
     def convert(value):
-        return str(int(value,2))
+        try:
+            return str(int(value,2))
+        except ValueError:
+            return "xx"
     return convert
 
 def convertBinStrToHex():
     def convert(value):
-        return "%04x" % int(value,2)
+        try:
+            return "%04x" % int(value,2)
+        except ValueError:
+            return "xxxx"
     return convert
 
+def isHigh():
+    def compare(value):
+        logging.debug("compare %s" % (value))
+        try:
+            if int(value):
+                return True
+        except ValueError:
+            return False
+    return compare
+
 def compareBitField(bit):
-    def convert(value):
+    def compare(value):
         logging.debug("compare %s with bit %d" % (value, bit))
         try:
             return int(value[-(bit+1)]) # -(bit+1) to index from the end of the string as bitfield is MSB->LSB
         except IndexError:
             return False
-    return convert
+    return compare
 
 # Animators work on a piece of SVG and update it depending on the VCD file
 class Animator(object):
@@ -47,7 +63,9 @@ class Animator(object):
     def animate(self, soup, frame):
         try:
             self.update(soup, frame)
-        except AttributeError:
+        except AttributeError as e:
+            exit("animator for [%s] failed looking for tag [%s]" % (self.vcd_id, self.svg_id))
+        except TypeError as e:
             exit("animator for [%s] failed looking for tag [%s]" % (self.vcd_id, self.svg_id))
 
 # Replace a piece of text in the SVG with something from the VCD
@@ -59,8 +77,11 @@ class TextReplacer(Animator):
         self.conversion = conversion
 
     def update(self, soup, frame):
-        elem = soup.find("",{"id": self.svg_id}).find("tspan")
-        elem.string = self.conversion(self.data[frame][1])
+        elem = soup.find("",{"id": self.svg_id})
+        if elem is None:
+            exit("couldn't find tag [%s] in SVG" % self.svg_id)
+        text = elem.find("tspan")
+        text.string = self.conversion(self.data[frame])
 
 # Replace a style depending on a comparison in the VCD
 class StyleReplacer(Animator):
