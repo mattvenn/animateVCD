@@ -80,6 +80,10 @@ class AnimateSVG(object):
         self.vcd = VCDHelper(vcd_file)
         self.max_frames = 1e6
 
+    def addAnimators(self, animators):
+        for a in animators:
+            self.addAnimator(a)
+
     # add the animator to the list, and fetch its data
     def addAnimator(self, animator):
         vcd_data=self.vcd.fetch(animator.vcd_id)
@@ -112,28 +116,12 @@ class AnimateSVG(object):
 
 if __name__ == '__main__':
 
-    import argparse
-    parser = argparse.ArgumentParser(description="animate SVG file with a VCD")
-    parser.add_argument('--svg', required=True)
-    parser.add_argument('--vcd', required=True)
-    parser.add_argument('--frames', type=int, default=16)
-    parser.add_argument('--loglevel', default=logging.INFO)
-    args = parser.parse_args()
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 
-    logging.basicConfig(level=args.loglevel, format='%(asctime)s %(levelname)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
-
-    # the svg file should have SVG objects that have specific unique IDs
-    animate = AnimateSVG(args.svg, args.vcd)
-
-    # add the animators. The svg_id matches the ID in the SVG file, and the vcd_id is the name of the data in the VCD file
-    # 1 for the counter
-    animate.addAnimator(
-        TextReplacer(svg_id='count', vcd_id='counter', conversion=convertBinStrToInt()))
-
-    # 1 for each segment in the display
-    for bit in range(10):
-        animate.addAnimator(
-            StyleReplacer(svg_id='seg%d' % bit, vcd_id='segs', replace=('fill:none', 'fill:red'), compare=compareBitField(bit)))
+    from config import animators, frames, svg_file, vcd_file
+    animate = AnimateSVG(svg_file, vcd_file)
+    print(animators)
+    animate.addAnimators(animators)
 
     # do the animation
-    animate.animate(args.frames)
+    animate.animate(frames)

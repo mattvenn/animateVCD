@@ -4,8 +4,8 @@ all: animate.gif
 # $< first pre requisite
 # $^ names of all preerquisites
 
-animate.gif: animate.py 7seg.svg
-	python animate.py --vcd test.vcd --svg 7seg.svg --frames 16
+animate.gif: animateVCD.py 7seg.svg test.vcd
+	python animateVCD.py
 	convert -delay 50 -morph 0 frames/*svg $@
 
 clean:
