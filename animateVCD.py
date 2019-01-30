@@ -53,12 +53,20 @@ def compareBitField(bit):
 # Animators work on a piece of SVG and update it depending on the VCD file
 class Animator(object):
 
-    def __init__(self, svg_id, vcd_id):
-        self.svg_id = svg_id
-        self.vcd_id = vcd_id
+    def add_vcd_data(self, vcd, clocks):
+        self.data = []
+        vcd_index = 0
+        last_vcd = vcd[vcd_index][1] # vcd data is list of tuples: (clock, value)
 
-    def add_vcd_data(self, data):
-        self.data = data
+        for clock in range(clocks):
+            try:
+                if vcd[vcd_index][0] == clock:
+                    last_vcd = vcd[vcd_index][1]
+                    vcd_index += 1
+            except IndexError:
+                pass
+            self.data.append(last_vcd)
+        logging.debug("filled data for %s: %s" % (self.vcd_id, self.data))
 
     def animate(self, soup, frame):
         try:
@@ -93,7 +101,7 @@ class StyleReplacer(Animator):
         self.replace = replace
 
     def update(self, soup, frame):
-        if self.compare(self.data[frame][1]):
+        if self.compare(self.data[frame]):
             elem = soup.find("", {"id": self.svg_id})
             elem['style'] = elem['style'].replace(*self.replace)
 
