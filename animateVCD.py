@@ -20,11 +20,16 @@ def convertBinStrToInt():
         return str(int(value,2))
     return convert
 
+def convertBinStrToHex():
+    def convert(value):
+        return "%04x" % int(value,2)
+    return convert
+
 def compareBitField(bit):
     def convert(value):
         logging.debug("compare %s with bit %d" % (value, bit))
         try:
-            return int(value[-(bit+1)])
+            return int(value[-(bit+1)]) # -(bit+1) to index from the end of the string as bitfield is MSB->LSB
         except IndexError:
             return False
     return convert

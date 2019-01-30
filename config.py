@@ -1,10 +1,10 @@
-from animateVCD import TextReplacer, StyleReplacer, compareBitField, convertBinStrToInt
+from animateVCD import TextReplacer, StyleReplacer, compareBitField, convertBinStrToInt, convertBinStrToHex
 animators = []
 
 # add the animators. The svg_id matches the ID in the SVG file, and the vcd_id is the name of the data in the VCD file
 # 1 for the counter
 animators.append(
-    TextReplacer(svg_id='count', vcd_id='counter', conversion=convertBinStrToInt()))
+    TextReplacer(svg_id='count', vcd_id='counter', conversion=convertBinStrToHex()))
 
 # 1 for each segment in the display
 for bit in range(10):
