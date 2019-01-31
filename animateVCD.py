@@ -14,11 +14,12 @@ class VCDHelper(object):
                 data = (self.vcd[key]['tv'])
                 return data
 
-# handy conversion functions to convert the kind of values a VCD file has to something we might want in the SVG
+# handy conversion functions to convert the kind of values
+# a VCD file has to something we might want in the SVG
 def convertBinStrToInt():
     def convert(value):
         try:
-            return str(int(value,2))
+            return str(int(value, 2))
         except ValueError:
             return "xx"
     return convert
@@ -26,7 +27,7 @@ def convertBinStrToInt():
 def convertBinStrToHex():
     def convert(value):
         try:
-            return "%04x" % int(value,2)
+            return "%04x" % int(value, 2)
         except ValueError:
             return "xxxx"
     return convert
@@ -45,10 +46,12 @@ def compareBitField(bit):
     def compare(value):
         logging.debug("compare %s with bit %d" % (value, bit))
         try:
-            return int(value[-(bit+1)]) # -(bit+1) to index from the end of the string as bitfield is MSB->LSB
+            # -(bit+1) to index from the end of the string as bitfield is MSB->LSB
+            return int(value[-(bit+1)])
         except IndexError:
             return False
     return compare
+
 
 # Animators work on a piece of SVG and update it depending on the VCD file
 class Animator(object):
@@ -71,25 +74,25 @@ class Animator(object):
     def animate(self, soup, frame):
         try:
             self.update(soup, frame)
-        except AttributeError as e:
+        except (AttributeError, TypeError):
             exit("animator for [%s] failed looking for tag [%s]" % (self.vcd_id, self.svg_id))
-        except TypeError as e:
-            exit("animator for [%s] failed looking for tag [%s]" % (self.vcd_id, self.svg_id))
+
 
 # Replace a piece of text in the SVG with something from the VCD
 class TextReplacer(Animator):
-    
+
     def __init__(self, svg_id, vcd_id, conversion):
         self.svg_id = svg_id
         self.vcd_id = vcd_id
         self.conversion = conversion
 
     def update(self, soup, frame):
-        elem = soup.find("",{"id": self.svg_id})
+        elem = soup.find("", {"id": self.svg_id})
         if elem is None:
             exit("couldn't find tag [%s] in SVG" % self.svg_id)
         text = elem.find("tspan")
         text.string = self.conversion(self.data[frame])
+
 
 # Replace a style depending on a comparison in the VCD
 class StyleReplacer(Animator):
@@ -105,9 +108,10 @@ class StyleReplacer(Animator):
             elem = soup.find("", {"id": self.svg_id})
             elem['style'] = elem['style'].replace(*self.replace)
 
+
 # AnimateSVG class takes an SVG file and a bunch of Animator objects
 class AnimateSVG(object):
-    
+
     def __init__(self, svg_file, vcd_file, frames):
         self.animators = []
         self.svg_file = svg_file
@@ -123,7 +127,7 @@ class AnimateSVG(object):
 
     # add the animator to the list, and fetch its data
     def addAnimator(self, animator):
-        vcd_data=self.vcd.fetch(animator.vcd_id)
+        vcd_data = self.vcd.fetch(animator.vcd_id)
 
         if vcd_data is None:
             exit("no data for [%s] found in VCD. Make sure VCD file is not compressed and vcd_id is valid" % animator.vcd_id)
@@ -131,12 +135,10 @@ class AnimateSVG(object):
         animator.add_vcd_data(vcd_data, self.frames)
         self.animators.append(animator)
 
-   
     # animate method is called with a number of frames to iterate over
-    # everytime, call each animators update method with the parsed SVG file and the current frame number
-    # writes the output to an SVG file
+    # everytime, call each animators update method with the parsed SVG file 
+    # and the current frame number writes the output to an SVG file
     def animate(self):
-
         for frame in range(self.frames):
             logging.info("frame %03d" % frame)
             with open(self.svg_file) as fh:
@@ -148,11 +150,12 @@ class AnimateSVG(object):
             with open("frames/frame_%03d.svg" % frame, 'w') as fh:
                 fh.write(str(soup))
 
+
 if __name__ == '__main__':
 
-    logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(levelname)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 
-    import importlib
+    # config in a separate python file as it can be quite programatic
     from config import animators, frames, svg_file, vcd_file
     animate = AnimateSVG(svg_file, vcd_file, frames)
     animate.addAnimators(animators)
