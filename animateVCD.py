@@ -24,6 +24,14 @@ def convertBinStrToInt():
             return "xx"
     return convert
 
+def convertLookupTable(table):
+    def convert(value):
+        try:
+            return table[int(value, 2)]
+        except (ValueError, IndexError):
+            return "xx"
+    return convert
+
 def convertBinStrToHex():
     def convert(value):
         try:
@@ -37,6 +45,16 @@ def isHigh():
         logging.debug("compare %s" % (value))
         try:
             if int(value):
+                return True
+        except ValueError:
+            return False
+    return compare
+
+def isLow():
+    def compare(value):
+        logging.debug("compare %s" % (value))
+        try:
+            if int(value) == 0:
                 return True
         except ValueError:
             return False
@@ -108,6 +126,17 @@ class StyleReplacer(Animator):
             elem = soup.find("", {"id": self.svg_id})
             elem['style'] = elem['style'].replace(*self.replace)
 
+class Hide(Animator):
+
+    def __init__(self, svg_id, vcd_id, compare):
+        self.svg_id = svg_id
+        self.vcd_id = vcd_id
+        self.compare = compare
+
+    def update(self, soup, frame):
+        if self.compare(self.data[frame]):
+            elem = soup.find("", {"id": self.svg_id})
+            elem['style'] += ";display:none"
 
 # AnimateSVG class takes an SVG file and a bunch of Animator objects
 class AnimateSVG(object):
