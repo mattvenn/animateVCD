@@ -1,5 +1,6 @@
 from Verilog_VCD import parse_vcd
 from bs4 import BeautifulSoup
+import re
 import logging
 
 # wrap up Verilog_VCD with a method to fetch all data for a specific key
@@ -10,9 +11,13 @@ class VCDHelper(object):
 
     def fetch(self, name):
         for key in self.vcd.keys():
-            if name in self.vcd[key]['nets'][0]['name']:
-                data = (self.vcd[key]['tv'])
-                return data
+            vcd_name = self.vcd[key]['nets'][0]['name']
+            # regex so don't have to provide the register width
+            m = re.search("^([^[]+)(\[\d+:\d+\])?$", vcd_name)
+            if m is not None:
+                if m.group(1) == name:
+                    data = (self.vcd[key]['tv'])
+                    return data
 
 # handy conversion functions to convert the kind of values
 # a VCD file has to something we might want in the SVG
