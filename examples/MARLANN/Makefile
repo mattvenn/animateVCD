@@ -4,9 +4,9 @@ all: test.vcd
 # $< first pre requisite
 # $^ names of all preerquisites
 
-test.vcd: test.v pipeline.v
-	iverilog -o pipeline pipeline.v test.v
+test.vcd: test.v marlann.v
+	iverilog -o pipeline marlann.v test.v
 	vvp pipeline
-	gtkwave test.vcd gtk-pipe.gtkw
+	gtkwave test.vcd gtk-marlann.gtkw
 
 .PHONY: all prog clean

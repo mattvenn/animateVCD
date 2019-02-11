@@ -35,7 +35,7 @@ def convertBinStrToInt():
 def convertLookupTable(table):
     def convert(value):
         try:
-            return table[int(value, 2)]
+            return table[str(int(value, 2))]
         except (ValueError, IndexError):
             return "xx"
     return convert
