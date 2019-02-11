@@ -205,7 +205,11 @@ if __name__ == '__main__':
     # config in a separate python file as it can be quite programatic
 
     sys.path.append(args.config)
-    from config import animators, frames, svg_file, vcd_file
+    try:
+        from config import animators, frames, svg_file, vcd_file
+    except ImportError:
+        exit("no config.py found in %s" % args.config)
+
     animate = AnimateSVG(svg_file, vcd_file, frames)
     animate.addAnimators(animators)
 
