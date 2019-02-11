@@ -9,7 +9,7 @@ Here's a [10 segment counter](https://github.com/mattvenn/icestick-multisegment/
 
 An animated gif can be created from an [SVG template](examples/10seg/10seg.svg) file and animated over a number of frames. 
 
-![animate](examples/10seg/animate.gif)
+![animate](examples/10seg/10seg.gif)
 
 # Instructions
 
@@ -43,7 +43,7 @@ Simulate your verilog and dump your VCD file (don't compress the VCD):
 Then run the animation and use ImageMagick's convert to convert to an animated gif:
 
 	./animateVCD.py --config examples/10seg
-	convert -delay 50 -morph 1 frames/*svg $@
+	convert -delay 50 -morph 1 frames/*svg animation.gif
 
 # Acknowledgements
 
