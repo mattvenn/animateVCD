@@ -207,6 +207,7 @@ if __name__ == '__main__':
     sys.path.append(args.config)
     try:
         from config import animators, frames, svg_file, vcd_file
+        logging.info("vcd: %s svg: %s frames: %d" % (vcd_file, svg_file, frames))
     except ImportError:
         exit("no config.py found in %s" % args.config)
 
