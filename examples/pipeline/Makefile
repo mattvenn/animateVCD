@@ -1,7 +1,6 @@
-all: animate
+all: test.vcd
 
-animate:
+test.vcd:
 	iverilog -o pipeline pipeline.v
 	vvp pipeline
 	gtkwave test.vcd gtk-pipeline.gtkw
-	python animateVCD.py
