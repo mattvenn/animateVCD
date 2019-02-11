@@ -15,5 +15,5 @@ for bit in range(10):
 frames = 16
 
 # files
-svg_file = "10seg.svg"
-vcd_file = "test.vcd"
+svg_file = "examples/10seg/10seg.svg"
+vcd_file = "examples/10seg/test.vcd"

@@ -67,6 +67,7 @@ module pipeline(
     output reg [15:0] out
     );
 
+    reg [7:0] count = 0;
     reg [7:0] ra, rb, rc, rd;
     reg [15:0] stage1;
     reg [15:0] stage2;
@@ -75,6 +76,7 @@ module pipeline(
     reg [7:0] stage2_d;
 
     always @(posedge clk) begin
+        count <= count + 1;
         ra <= a;
         rb <= b;
         rc <= c;
