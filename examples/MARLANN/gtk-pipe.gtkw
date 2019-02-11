@@ -1,0 +1,37 @@
+[*]
+[*] GTKWave Analyzer v3.3.66 (w)1999-2015 BSI
+[*] Wed Jan 30 18:07:06 2019
+[*]
+[dumpfile] "/home/matt/work/fpga/symbiotic-eda/pipeline-formal-vid/animate/pipeline/test.vcd"
+[dumpfile_mtime] "Wed Jan 30 18:06:49 2019"
+[dumpfile_size] 1623
+[savefile] "/home/matt/work/fpga/symbiotic-eda/pipeline-formal-vid/animate/pipeline/gtk-pipe.gtkw"
+[timestart] 0
+[size] 1200 600
+[pos] -1 -1
+*-4.000571 19 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] test.
+[sst_width] 253
+[signals_width] 325
+[sst_expanded] 1
+[sst_vpaned_height] 158
+@28
+test.clk
+@22
+test.pipe_0.inst[7:0]
+test.pipe_0.inst1[7:0]
+test.pipe_0.inst2[7:0]
+test.pipe_0.inst3[7:0]
+test.pipe_0.inst4[7:0]
+test.pipe_0.inst5[7:0]
+@28
+test.pipe_0.memory_1
+test.pipe_0.memory_2
+test.pipe_0.write
+test.pipe_0.mem_access
+@24
+test.pipe_0.sum_mem_access[2:0]
+@29
+test.pipe_0.collision
+[pattern_trace] 1
+[pattern_trace] 0
