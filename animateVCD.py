@@ -1,7 +1,10 @@
+#!/usr/bin/env python
 from Verilog_VCD import parse_vcd
 from bs4 import BeautifulSoup
 import re
 import logging
+import sys
+import argparse
 
 # wrap up Verilog_VCD with a method to fetch all data for a specific key
 class VCDHelper(object):
@@ -187,9 +190,21 @@ class AnimateSVG(object):
 
 if __name__ == '__main__':
 
-    logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+
+    parser = argparse.ArgumentParser(description="animate a VCD file with an SVG")
+    parser.add_argument('--config', required=True, help="directory that contains the config.py configuration file")
+    parser.add_argument("-v", "--verbose", dest="verbose_count",
+                            action="count", default=1,
+                            help="increases log verbosity for each occurence.")
+
+    args = parser.parse_args()
+    log_level = max(3 - args.verbose_count, 0) * 10
+    logging.basicConfig(level=log_level, format='%(asctime)s %(levelname)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+
 
     # config in a separate python file as it can be quite programatic
+
+    sys.path.append(args.config)
     from config import animators, frames, svg_file, vcd_file
     animate = AnimateSVG(svg_file, vcd_file, frames)
     animate.addAnimators(animators)

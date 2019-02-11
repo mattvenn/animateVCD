@@ -24,5 +24,5 @@ animators = [
 frames = 20
 
 # files
-svg_file = "pipeline.svg"
-vcd_file = "test.vcd"
+svg_file = "examples/pipeline/pipeline.svg"
+vcd_file = "examples/pipeline/test.vcd"
