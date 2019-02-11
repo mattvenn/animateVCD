@@ -1,6 +1,6 @@
-//`define NORMAL // normal pipeline operation
+`define NORMAL // normal pipeline operation
 //`define COLLIDE_1 // normal pipeline operation
-`define COLLIDE_2 // normal pipeline operation
+//`define COLLIDE_2 // normal pipeline operation
 `default_nettype none
 module test;
 
