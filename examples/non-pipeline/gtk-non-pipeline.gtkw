@@ -1,0 +1,30 @@
+[*]
+[*] GTKWave Analyzer v3.3.66 (w)1999-2015 BSI
+[*] Tue Feb 12 11:39:03 2019
+[*]
+[dumpfile] "/home/matt/work/fpga/symbiotic-eda/pipeline-formal-vid/animate/animateVCD/examples/non-pipeline/test.vcd"
+[dumpfile_mtime] "Tue Feb 12 11:38:33 2019"
+[dumpfile_size] 2343
+[savefile] "/home/matt/work/fpga/symbiotic-eda/pipeline-formal-vid/animate/animateVCD/examples/non-pipeline/gtk-non-pipeline.gtkw"
+[timestart] 0
+[size] 1000 600
+[pos] -1476 472
+*-5.123720 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] test.
+[sst_width] 253
+[signals_width] 129
+[sst_expanded] 1
+[sst_vpaned_height] 158
+@28
+test.non_pipeline_inst_0.clk
+@22
+test.non_pipeline_inst_0.a[7:0]
+test.non_pipeline_inst_0.b[7:0]
+test.non_pipeline_inst_0.c[7:0]
+test.non_pipeline_inst_0.d[7:0]
+@25
+test.non_pipeline_inst_0.out[15:0]
+@28
+test.non_pipeline_inst_0.busy
+[pattern_trace] 1
+[pattern_trace] 0

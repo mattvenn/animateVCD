@@ -2,6 +2,8 @@
 `default_nettype none
 module test;
   reg clk = 0;
+  reg start = 0;
+  wire busy;
   reg [7:0] a,b,c,d;
   always #1 clk = !clk;
 
@@ -13,27 +15,37 @@ module test;
      b = 2;
      c = 3;
      d = 4;
+     start = 1;
+     wait(busy);
+     start = 0;
+     wait(busy == 0)
      $display("a * b * c + d = %d", a * b * c + d);
 
-     # 8;
      a = 2;
      b = 3;
      c = 4;
      d = 5;
+     start = 1;
+     wait(busy);
+     start = 0;
+     wait(busy == 0)
      $display("a * b * c + d = %d", a * b * c + d);
 
-     # 8;
      a = 3;
      b = 4;
      c = 5;
      d = 6;
+     start = 1;
+     wait(busy);
+     start = 0;
+     wait(busy == 0)
      $display("a * b * c + d = %d", a * b * c + d);
 
      # 100;
      $finish;
   end
 
-  non_pipeline non_pipeline_inst_0 (.clk(clk), .a(a), .b(b), .c(c), .d(d));
+  non_pipeline non_pipeline_inst_0 (.clk(clk), .a(a), .b(b), .c(c), .d(d), .start(start), .busy(busy));
 
 endmodule
 
@@ -43,6 +55,8 @@ module non_pipeline(
     input [7:0] b,
     input [7:0] c,
     input [7:0] d,
+    input start,
+    output busy,
     output reg [15:0] out
     );
 
@@ -56,17 +70,29 @@ module non_pipeline(
 
     always @(posedge clk) begin
         count <= count + 1;
+    end
+
+    reg [1:0] process = 0; // keep track of where we are in the calculation
+    reg run = 0;
+    assign busy = run;
+
+    always @(posedge clk) begin
+        // always capture the inputs, controller mustn't change till busy goes low
         ra <= a;
         rb <= b;
         rc <= c;
         rd <= d;
-        stage1 <= ra * rb;
-        stage1_c <= rc;
-        stage1_d <= rd;
 
-        stage2 <= stage1 * stage1_c;
-        stage2_d <= stage1_d;
-
-        out <= stage2 + stage2_d;
+        if(run) begin
+            case(process)
+                0: stage1 <= ra * rb;
+                1: stage2 <= stage1 * rc;
+                2: begin out <= stage2 + rd; run <= 0; end
+            endcase
+            process <= process + 1;
+        end else if (start) begin
+            process <= 0;
+            run <= 1;
+        end
     end
 endmodule
