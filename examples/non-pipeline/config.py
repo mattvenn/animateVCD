@@ -3,10 +3,10 @@ from animateVCD import TextReplacer, StyleReplacer, compareBitField, convertBinS
 # add the animators. The svg_id matches the ID in the SVG file, and the vcd_id is the name of the data in the VCD file
 # 1 for the counter
 animators = [
-    TextReplacer(svg_id='reg-input-a', vcd_id='ra', conversion=convertBinStrToInt()),
-    TextReplacer(svg_id='reg-input-b', vcd_id='rb', conversion=convertBinStrToInt()),
-    TextReplacer(svg_id='reg-input-c', vcd_id='rc', conversion=convertBinStrToInt()),
-    TextReplacer(svg_id='reg-input-d', vcd_id='rd', conversion=convertBinStrToInt()),
+    TextReplacer(svg_id='reg-input-a', vcd_id='a', conversion=convertBinStrToInt()),
+    TextReplacer(svg_id='reg-input-b', vcd_id='b', conversion=convertBinStrToInt()),
+    TextReplacer(svg_id='reg-input-c', vcd_id='c', conversion=convertBinStrToInt()),
+    TextReplacer(svg_id='reg-input-d', vcd_id='d', conversion=convertBinStrToInt()),
 
 
     TextReplacer(svg_id='stage1', vcd_id='stage1', conversion=convertBinStrToInt()),
