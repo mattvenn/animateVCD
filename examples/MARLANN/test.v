@@ -1,6 +1,6 @@
-`define NORMAL // normal pipeline operation
+//`define NORMAL // normal pipeline operation
 //`define COLLIDE_1 // normal pipeline operation
-//`define COLLIDE_2 // normal pipeline operation
+`define COLLIDE_2 // normal pipeline operation
 `default_nettype none
 module test;
 
@@ -13,58 +13,55 @@ module test;
         $dumpfile("test.vcd");
         $dumpvars(0,test);
     `ifdef NORMAL
-        # 2
         inst = 1 << LD_DATA;
+        # 1
+        inst <= 1 << LD_COEFF;
         # 2
-        inst = 1 << LD_COEFF;
+        inst <= 1 << ADD | 1 << MULT;
         # 2
-        inst = 1 << ADD | 1 << MULT;
+        inst <= 1 << ADD | 1 << MULT;
         # 2
-        inst = 1 << ADD | 1 << MULT;
+        inst <= 1 << ADD | 1 << MULT;
         # 2
-        inst = 1 << ADD | 1 << MULT;
+        inst <= 1 << ADD | 1 << MULT;
         # 2
-        inst = 1 << ADD | 1 << MULT;
+        inst <= 1 << WRITE;
         # 2
-        inst = 1 << WRITE;
-        # 2
-        inst = 1 << NOP;
+        inst <= 1 << NOP;
         # 2
     `endif
 
     `ifdef COLLIDE_1
-        # 2
         inst = 1 << LD_COEFF;
+        # 1
+        inst <= 1 << LD_DATA;
         # 2
-        inst = 1 << LD_DATA;
+        inst <= 1 << ADD | 1 << MULT;
         # 2
-        inst = 1 << ADD | 1 << MULT;
-        # 2
-        inst = 1 << NOP;
+        inst <= 1 << NOP;
         # 2
     `endif
 
     `ifdef COLLIDE_2
-        # 2
         inst = 1 << LD_COEFF;
+        # 1
+        inst <= 1 << NOP;
         # 2
-        inst = 1 << NOP;
+        inst <= 1 << LD_DATA;
         # 2
-        inst = 1 << LD_DATA;
+        inst <= 1 << ADD | 1 << MULT;
         # 2
-        inst = 1 << ADD | 1 << MULT;
+        inst <= 1 << ADD | 1 << MULT;
         # 2
-        inst = 1 << ADD | 1 << MULT;
+        inst <= 1 << WRITE;
         # 2
-        inst = 1 << WRITE;
+        inst <= 1 << ADD | 1 << MULT;
         # 2
-        inst = 1 << ADD | 1 << MULT;
+        inst <= 1 << ADD | 1 << MULT;
         # 2
-        inst = 1 << ADD | 1 << MULT;
+        inst <= 1 << LD_COEFF;
         # 2
-        inst = 1 << LD_COEFF;
-        # 2
-        inst = 1 << NOP;
+        inst <= 1 << NOP;
         # 2
     `endif
 
