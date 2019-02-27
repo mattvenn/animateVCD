@@ -1,0 +1,54 @@
+[*]
+[*] GTKWave Analyzer v3.3.66 (w)1999-2015 BSI
+[*] Wed Feb 27 18:16:48 2019
+[*]
+[dumpfile] "/home/matt/work/fpga/symbiotic-eda/pipeline-formal-vid/animate/animateVCD/examples/inter-clock-animation/test.vcd"
+[dumpfile_mtime] "Wed Feb 27 18:13:35 2019"
+[dumpfile_size] 3729
+[savefile] "/home/matt/work/fpga/symbiotic-eda/pipeline-formal-vid/animate/animateVCD/examples/inter-clock-animation/gtk-pipeline.gtkw"
+[timestart] 0
+[size] 1205 672
+[pos] 1121 540
+*-3.123720 4 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] test.
+[sst_width] 253
+[signals_width] 274
+[sst_expanded] 1
+[sst_vpaned_height] 182
+@28
+test.clk
+test.clk2
+@22
+test.inst[7:0]
+test.count[7:0]
+@200
+-
+@22
+test.pipeline_inst_0.stage0[7:0]
+@28
+test.pipeline_inst_0.stage0_show
+test.pipeline_inst_0.stage0_arrow
+@200
+-
+@22
+test.pipeline_inst_0.stage1[7:0]
+@28
+test.pipeline_inst_0.stage1_show
+test.pipeline_inst_0.stage1_arrow
+@200
+-
+@22
+test.pipeline_inst_0.stage1_2[7:0]
+@28
+test.pipeline_inst_0.stage1_2_show
+@29
+test.pipeline_inst_0.stage1_2_arrow
+@200
+-
+@22
+test.pipeline_inst_0.stage2[7:0]
+test.pipeline_inst_0.stage2_3[7:0]
+test.pipeline_inst_0.stage3[7:0]
+test.pipeline_inst_0.stage3_4[7:0]
+[pattern_trace] 1
+[pattern_trace] 0
