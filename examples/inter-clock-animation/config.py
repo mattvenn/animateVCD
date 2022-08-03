@@ -1,5 +1,5 @@
 from animateVCD import TextReplacer, StyleReplacer, compareBitField, convertBinStrToInt, convertBinStrToHex, Hide, isLow, isHigh, convertLookupTable
-instructions = {"0": "xx", "1": "A", "2": "B", "4": "C", "8": "D", "16": "E", "24": "add/mult", "32": "write"}
+instructions = {0: "xx", 1: "A", 2: "B", 4: "C", 8: "D", 16: "E", 24: "add/mult", 32: "write"}
 
 # add the animators. The svg_id matches the ID in the SVG file, and the vcd_id is the name of the data in the VCD file
 # 1 for the counter

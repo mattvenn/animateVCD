@@ -1,5 +1,5 @@
 from animateVCD import Hide, TextReplacer, StyleReplacer, compareBitField, convertLookupTable, convertBinStrToInt, convertBinStrToHex, isHigh, isLow
-instructions = {"0": "xx", "1": "nop", "2": "ld data", "4": "ld coeff", "8": "add", "16": "mult", "24": "add/mult", "32": "write"}
+instructions = {0: "xx", 1: "nop", 2: "ld data", 4: "ld coeff", 8: "add", 16: "mult", 24: "add/mult", 32: "write"}
 pipe_colour_1 = 'fill:#c8c4b7'
 pipe_colour_2 = 'fill:#bcd35f'
 # add the animators. The svg_id matches the ID in the SVG file, and the vcd_id is the name of the data in the VCD file
